@@ -4,13 +4,17 @@ namespace FC\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Serializable;
+
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="fc_user")
  * @ORM\Entity(repositoryClass="FC\UserBundle\Repository\UserRepository")
  */
-class User
+class User implements AdvancedUserInterface
 {
     /**
      * @var int
@@ -47,14 +51,14 @@ class User
      *
      * @ORM\Column(name="roles", type="array")
      */
-    private $roles;
+    private $roles = array();
 
     /**
      * @var bool
      *
      * @ORM\Column(name="isActive", type="boolean")
      */
-    private $isActive;
+    private $isActive = true;
 
     /**
      * @var string
@@ -66,10 +70,14 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="plainPassword", type="string", length=255)
+     * @ORM\Column(name="plainPassword", type="string", length=255, nullable=true)
      */
     private $plainPassword;
 
+    public function __construct()
+    {
+        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)),16,36);
+    }
 
     /**
      * Get id
@@ -156,7 +164,7 @@ class User
      * @param array $roles
      * @return User
      */
-    public function setRoles($roles)
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
 
@@ -170,7 +178,9 @@ class User
      */
     public function getRoles()
     {
-        return $this->roles;
+        $roles = $this->roles;
+        $role[] = "ROLE_USER";
+        return array_unique($roles);
     }
 
     /**
@@ -240,5 +250,36 @@ class User
     public function getPlainPassword()
     {
         return $this->plainPassword;
+    }
+
+    public function isAccountNonExpired(){
+        return true;
+    }
+    public function isAccountNonLocked(){
+        return true;
+    }
+    public function isCredentialsNonExpired(){
+        return true;
+    }
+    public function isEnabled(){
+        return $this->getIsActive();
+    }
+    public function eraseCredentials(){
+        $this->setPlainPassword(null);
+    }
+
+    public function equals(UserInterface $user){
+        return $this->getId() === $user->getId();
+    }
+
+    public function serialize(){
+        return serialize(array(
+            'id'=> $this->getId()
+            ));
+    }
+
+    public function unserialize($serialized) {
+        $data = unserialize($serialized);
+        $this->id = $data['id'];
     }
 }
