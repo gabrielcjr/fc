@@ -32,7 +32,7 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface {
 
         $manager->flush();
     }
-    public function setContainer(ContainerInterface|null $container = null) {
+    public function setContainer(ContainerInterface $container = null) {
         $this->container = $container;
     }
 

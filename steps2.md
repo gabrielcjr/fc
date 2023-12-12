@@ -21,3 +21,4 @@ Add to composer.json
 composer.phar update
 
 app/console doctrine:fixtures:load
+
