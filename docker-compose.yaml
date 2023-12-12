@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  # app:
+  #   build: .
+  #   container_name: codeplatform
+  #   entrypoint: ./.docker/entrypoint.sh
+  #   volumes:
+  #     - .:/var/www
+  #   ports:
+  #     - "8000:8000"
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sf
+    ports:
+      - "3306:3306"
