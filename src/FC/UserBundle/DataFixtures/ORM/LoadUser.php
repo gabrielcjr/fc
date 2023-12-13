@@ -17,7 +17,7 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface {
         $user = new User();
         $user->setUsername("user")
             ->setEmail("user@user.com")
-            ->setPassword("password")
+            ->setPassword($this->encodePassword($user,"user"))
             ->setIsActive(true);
         
         $manager->persist($user);
@@ -25,7 +25,7 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface {
         $admin = new User();
         $admin->setUsername("admin")
             ->setEmail("admin@admin.com")
-            ->setPassword("password")
+            ->setPassword($this->encodePassword($admin,"admin"))
             ->setIsActive(true);
         
         $manager->persist($admin);
