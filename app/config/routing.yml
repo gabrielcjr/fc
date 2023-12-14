@@ -1,6 +1,6 @@
 catalog:
-    resource: "@CatalogBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: "@CatalogBundle/Controller/CatalogController.php"
+    type:     annotation
 
 user:
     resource: "@UserBundle/Controller"
