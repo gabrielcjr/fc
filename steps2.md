@@ -48,3 +48,9 @@ app/console doctrine:fixtures:load
 
 app/console container:debug  
 
+# Install assets
+
+create file in Resources/public/css/main.css
+
+Simbolic link
+app/console assets:install web --symlink

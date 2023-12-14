@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Catálogo' %}
+
+{% block stylesheets %}
+
+{% for file in [
+    'bundles/catalog/css/main.css'
+] %}
+
+<link rel="stylesheet" href="{{asset(file)}}" />
+
+{% endfor %}
+{% endblock %}
+{# 
+{% extends 'base.html.twig' %}
+
+{% block title 'Catálogo' %}
+
+{% block stylesheets %}
+
+    {% stylesheets filter='cssrewrite' 'bundles/catalog/css/*' %}
+        <link rel="stylesheet" href="{{asset(file)}}" />
+    {% endstylesheets %}
+
+
+{% endblock %} #}
