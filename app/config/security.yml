@@ -32,3 +32,8 @@ security:
 
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             #form_login: ~
+
+    access_control:
+        - {path: ^/catalog/new, roles: ROLE_USER}
+        - {path: ^/catalog/create, roles: ROLE_USER}
+        - {path: ^/catalog/(\d+)/(edit|update|delete), roles: ROLE_USER}

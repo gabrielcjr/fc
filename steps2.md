@@ -54,3 +54,7 @@ create file in Resources/public/css/main.css
 
 Simbolic link
 app/console assets:install web --symlink
+
+# Access control
+
+app/console debug:router
