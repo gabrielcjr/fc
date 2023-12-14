@@ -35,3 +35,7 @@ app/console doctrine:generate:entity
 app/console doctrine:schema:update --dump-sql
 
 app/console doctrine:schema:update --force
+
+# CRUD
+
+app/console generate:doctrine:crud
