@@ -1,3 +1,7 @@
+catalog:
+    resource: "@CatalogBundle/Resources/config/routing.yml"
+    prefix:   /
+
 user:
     resource: "@UserBundle/Controller"
     prefix:   /

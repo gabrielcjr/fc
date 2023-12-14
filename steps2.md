@@ -1,4 +1,4 @@
-# Create Bundle
+# Create UserBundle
 
 app/console generate:bundle
 
@@ -22,3 +22,6 @@ composer.phar update
 
 app/console doctrine:fixtures:load
 
+# Create CatalogBundle
+
+app/console generate:bundle
