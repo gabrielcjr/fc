@@ -29,3 +29,9 @@ app/console generate:bundle
 # Create entity
 
 app/console doctrine:generate:entity
+
+# Create catalog table
+
+app/console doctrine:schema:update --dump-sql
+
+app/console doctrine:schema:update --force
