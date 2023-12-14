@@ -25,3 +25,7 @@ app/console doctrine:fixtures:load
 # Create CatalogBundle
 
 app/console generate:bundle
+
+# Create entity
+
+app/console doctrine:generate:entity
