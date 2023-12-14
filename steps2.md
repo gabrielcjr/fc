@@ -39,3 +39,7 @@ app/console doctrine:schema:update --force
 # CRUD
 
 app/console generate:doctrine:crud
+
+# Data fixture
+
+app/console doctrine:fixtures:load
