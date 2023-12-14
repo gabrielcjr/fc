@@ -43,3 +43,8 @@ app/console generate:doctrine:crud
 # Data fixture
 
 app/console doctrine:fixtures:load
+
+# Security 
+
+app/console container:debug  
+

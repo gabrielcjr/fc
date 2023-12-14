@@ -3,6 +3,10 @@
 security:
     encoders:
         FC\UserBundle\Entity\User: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLSE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:

@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+
 /**
  * Catalog controller.
  *
@@ -39,6 +41,10 @@ class CatalogController extends Controller
      */
     public function newAction(Request $request)
     {
+        $securityContext = $this->get('security.context');
+        if(!$securityContext->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException("Session for admin only");
+        }
         $catalog = new Catalog();
         $form = $this->createForm('FC\CatalogBundle\Form\CatalogType', $catalog);
         $form->handleRequest($request);
