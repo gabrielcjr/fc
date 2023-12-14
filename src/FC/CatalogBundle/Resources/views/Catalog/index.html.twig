@@ -43,9 +43,13 @@
         </tbody>
     </table>
 
+    {%if is_granted('ROLE_ADMIN')%}
+
     <ul>
         <li>
             <a href="{{ path('catalog_new') }}">Create a new catalog</a>
         </li>
     </ul>
+    {% endif %}
+
 {% endblock %}

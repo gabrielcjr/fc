@@ -6,6 +6,7 @@ use FC\CatalogBundle\Entity\Catalog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 
@@ -13,6 +14,7 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
  * Catalog controller.
  *
  * @Route("catalog")
+ * @Template()
  */
 class CatalogController extends Controller
 {
@@ -28,9 +30,9 @@ class CatalogController extends Controller
 
         $catalogs = $em->getRepository('CatalogBundle:Catalog')->findAll();
 
-        return $this->render('catalog/index.html.twig', array(
+        return array(
             'catalogs' => $catalogs,
-        ));
+        );
     }
 
     /**
@@ -54,7 +56,7 @@ class CatalogController extends Controller
             $em->persist($catalog);
             $em->flush();
 
-            return $this->redirectToRoute('catalog_show', array('id' => $catalog->getId()));
+            return array('id' => $catalog->getId());
         }
 
         return $this->render('catalog/new.html.twig', array(
@@ -73,10 +75,10 @@ class CatalogController extends Controller
     {
         $deleteForm = $this->createDeleteForm($catalog);
 
-        return $this->render('catalog/show.html.twig', array(
+        return array(
             'catalog' => $catalog,
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -97,11 +99,11 @@ class CatalogController extends Controller
             return $this->redirectToRoute('catalog_edit', array('id' => $catalog->getId()));
         }
 
-        return $this->render('catalog/edit.html.twig', array(
+        return array(
             'catalog' => $catalog,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
