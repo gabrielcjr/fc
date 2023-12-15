@@ -3,6 +3,7 @@
 namespace FC\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FC\UserBundle\Entity\User;
 
 /**
  * Catalog
@@ -48,6 +49,12 @@ class Catalog
      * @ORM\Column(name="imageName", type="string", length=255)
      */
     private $imageName;
+
+    /**
+     * @ORM/ManyToOne(targetEntity="FC\UserBundle\Entity\User", cascade={"remove"})
+     * @ORM/JoinColumn(onDelete="CASCADE")
+     */
+    private $author;
 
 
     /**
@@ -150,5 +157,14 @@ class Catalog
     public function getImageName()
     {
         return $this->imageName;
+    }
+
+    public function getAuthor(){
+        return $this->author;
+    }
+
+    public function setAuthor(User $author){
+        $this->author = $author;
+        return $this;
     }
 }
