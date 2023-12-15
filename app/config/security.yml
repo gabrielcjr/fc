@@ -36,4 +36,6 @@ security:
     access_control:
         - {path: ^/catalog/new, roles: ROLE_USER}
         - {path: ^/catalog/create, roles: ROLE_USER}
-        - {path: ^/catalog/(\d+)/(edit|update|delete), roles: ROLE_USER}
+        - {path: ^/catalog/create, roles: ROLE_USER, methods: POST}
+        - {path: ^/catalog/(\d+)/edit, roles: ROLE_USER}
+        - {path: ^/catalog/(\d+), roles: ROLE_USER, methods: DELETE, PUT}
