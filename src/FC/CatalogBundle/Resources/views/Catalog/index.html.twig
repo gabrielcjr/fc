@@ -33,9 +33,11 @@
                         <li>
                             <a href="{{ path('catalog_show', { 'id': catalog.id }) }}">show</a>
                         </li>
+                        {% if app.user == catalog.author %}
                         <li>
                             <a href="{{ path('catalog_edit', { 'id': catalog.id }) }}">edit</a>
                         </li>
+                        {% endif %}
                     </ul>
                 </td>
             </tr>
