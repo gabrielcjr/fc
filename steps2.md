@@ -64,3 +64,5 @@ app/console debug:router
 app/console doctrine:schema:update --force
 
 app/console doctrine:query:sql "Select * from fc_catalog"
+
+app/console doctrine:fixtures:load
