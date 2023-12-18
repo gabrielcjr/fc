@@ -66,3 +66,13 @@ app/console doctrine:schema:update --force
 app/console doctrine:query:sql "Select * from fc_catalog"
 
 app/console doctrine:fixtures:load
+
+# Use doctrine extensions slugging
+
+app/console doctrine:schema:drop --force       
+
+app/console doctrine:schema:create
+
+app/console doctrine:fixtures:load
+
+app/console doctrine:query:sql "Select * from fc_catalog"

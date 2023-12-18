@@ -3,6 +3,7 @@
 namespace FC\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use FC\UserBundle\Entity\User;
 
 /**
@@ -55,6 +56,12 @@ class Catalog
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $author;
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
 
     /**
@@ -166,5 +173,13 @@ class Catalog
     public function setAuthor(User $author){
         $this->author = $author;
         return $this;
+    }
+
+    public function getSlug(){
+        return $this->slug;
+    }
+
+    public function setSlug($slug){
+        $this->slug = $slug;
     }
 }
