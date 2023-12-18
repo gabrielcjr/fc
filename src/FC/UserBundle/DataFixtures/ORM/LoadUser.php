@@ -2,14 +2,15 @@
 
 namespace FC\UserBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use FC\UserBundle\Entity\User;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 
-class LoadUser implements FixtureInterface, ContainerAwareInterface {
+class LoadUser extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface {
 
     private $container;
 
@@ -22,6 +23,8 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface {
             ->setIsActive(true);
         
         $manager->persist($user);
+
+        $this->addReference("user-user", $user);
 
         $admin = new User();
         $admin->setUsername("admin")
@@ -43,6 +46,10 @@ class LoadUser implements FixtureInterface, ContainerAwareInterface {
         ->getEncoder($user);
 
         return $encoder->encodePassword($plainPassword, $user->getSalt());
+    }
+
+    function getOrder() {
+        return 10;
     }
 
 }
