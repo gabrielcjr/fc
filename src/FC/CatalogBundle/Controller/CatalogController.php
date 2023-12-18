@@ -53,7 +53,7 @@ class CatalogController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->get('security.context')->getToken()->getUser();
+            $user = $this->getUser();
             $catalog->setAuthor($user);
             $em = $this->getDoctrine()->getManager();
             $em->persist($catalog);
@@ -149,7 +149,7 @@ class CatalogController extends Controller
     }
 
     private function checkAuthor(Catalog $catalog) {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
 
         if($user != $catalog->getAuthor()) {
             throw new AccessDeniedException('You are not the author of this catalog');

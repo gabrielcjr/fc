@@ -2,6 +2,7 @@
 
 namespace FC\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -74,9 +75,15 @@ class User implements AdvancedUserInterface
      */
     private $plainPassword;
 
+    /**
+     * @ORM\OneToMany(targetEntity="FC\CatalogBundle\Entity\Catalog", mappedBy="author")
+     */
+    protected $catalogs;
+
     public function __construct()
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)),16,36);
+        $this->catalogs = new ArrayCollection();
     }
 
     /**
@@ -281,5 +288,13 @@ class User implements AdvancedUserInterface
     public function unserialize($serialized) {
         $data = unserialize($serialized);
         $this->id = $data['id'];
+    }
+
+    public function setCatalogs(array $catalogs){
+        $this->catalogs = $catalogs;
+    }
+
+    public function getCatalogs(){
+        return $this->catalogs;
     }
 }

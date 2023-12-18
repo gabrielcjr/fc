@@ -51,7 +51,7 @@ class Catalog
     private $imageName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="FC\UserBundle\Entity\User", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="FC\UserBundle\Entity\User", cascade={"remove"}, inversedBy="catalogs")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $author;
