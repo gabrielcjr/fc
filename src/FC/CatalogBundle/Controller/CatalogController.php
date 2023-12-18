@@ -96,6 +96,8 @@ class CatalogController extends Controller
         $editForm = $this->createForm('FC\CatalogBundle\Form\CatalogType', $catalog);
         $editForm->handleRequest($request);
 
+        $this->checkAuthor($catalog);
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -122,6 +124,7 @@ class CatalogController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->checkAuthor($catalog);
             $em->remove($catalog);
             $em->flush();
         }
@@ -143,5 +146,13 @@ class CatalogController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function checkAuthor(Catalog $catalog) {
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if($user != $catalog->getAuthor()) {
+            throw new AccessDeniedException('You are not the author of this catalog');
+        }
     }
 }
