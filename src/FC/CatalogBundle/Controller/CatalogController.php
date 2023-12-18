@@ -59,7 +59,7 @@ class CatalogController extends Controller
             $em->persist($catalog);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('catalog_show', array('id' => $catalog->getId())));
+            return $this->redirect($this->generateUrl('catalog_show', array('slug' => $catalog->getSlug())));
         }
 
         return array(
@@ -71,12 +71,15 @@ class CatalogController extends Controller
     /**
      * Finds and displays a catalog entity.
      *
-     * @Route("/{id}", name="catalog_show")
+     * @Route("/{slug}", name="catalog_show")
      * @Method("GET")
+     * @Template()
      */
-    public function showAction(Catalog $catalog)
+    public function showAction($slug)
     {
-        $deleteForm = $this->createDeleteForm($catalog);
+        $em = $this->getDoctrine()->getManager();
+        $catalog = $em->getRepository('CatalogBundle:Catalog')->findOneBySlug($slug);
+        $deleteForm = $this->createDeleteForm($catalog->getId());
 
         return array(
             'catalog' => $catalog,
@@ -92,7 +95,7 @@ class CatalogController extends Controller
      */
     public function editAction(Request $request, Catalog $catalog)
     {
-        $deleteForm = $this->createDeleteForm($catalog);
+        $deleteForm = $this->createDeleteForm($catalog->getId());
         $editForm = $this->createForm('FC\CatalogBundle\Form\CatalogType', $catalog);
         $editForm->handleRequest($request);
 
@@ -119,7 +122,7 @@ class CatalogController extends Controller
      */
     public function deleteAction(Request $request, Catalog $catalog)
     {
-        $form = $this->createDeleteForm($catalog);
+        $form = $this->createDeleteForm($catalog->getId());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -135,17 +138,21 @@ class CatalogController extends Controller
     /**
      * Creates a form to delete a catalog entity.
      *
-     * @param Catalog $catalog The catalog entity
+     * @param mixed $id The entity id
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Catalog $catalog)
+    private function createDeleteForm($id)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('catalog_delete', array('id' => $catalog->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+        return $this->createFormBuilder(array('id' => $id ))
+        ->add('id','hidden')
+        ->getForm()
         ;
+        // return $this->createFormBuilder()
+        //     ->setAction($this->generateUrl('catalog_delete', array('id' => $catalog->getSlug())))
+        //     ->setMethod('DELETE')
+        //     ->getForm()
+        // ;
     }
 
     private function checkAuthor(Catalog $catalog) {

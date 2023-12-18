@@ -23,7 +23,7 @@
         <tbody>
         {% for catalog in catalogs %}
             <tr>
-                <td><a href="{{ path('catalog_show', { 'id': catalog.id }) }}">{{ catalog.id }}</a></td>
+                <td><a href="{{ path('catalog_show', { 'slug': catalog.slug }) }}">{{ catalog.id }}</a></td>
                 <td>{{ catalog.name }}</td>
                 <td>{{ catalog.description }}</td>
                 <td>{% if catalog.releaseDate %}{{ catalog.releaseDate|date('Y-m-d H:i:s') }}{% endif %}</td>
@@ -31,7 +31,7 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('catalog_show', { 'id': catalog.id }) }}">show</a>
+                            <a href="{{ path('catalog_show', { 'slug': catalog.slug }) }}">show</a>
                         </li>
                         {% if app.user == catalog.author %}
                         <li>

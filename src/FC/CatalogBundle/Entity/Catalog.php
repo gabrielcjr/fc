@@ -63,6 +63,22 @@ class Catalog
      */
     private $slug;
 
+    /**
+     * @var \DateTime $created
+     * 
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     * 
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private $updated;
+
 
     /**
      * Get id
@@ -181,5 +197,21 @@ class Catalog
 
     public function setSlug($slug){
         $this->slug = $slug;
+    }
+
+    public function getCreated(){
+        return $this->created;
+    }
+
+    public function setCreated($created){
+        $this->created = $created;
+    }
+
+    public function getUpdated(){
+        return $this->updated;
+    }
+
+    public function setUpdated($updated){
+        $this->updated = $updated;
     }
 }
