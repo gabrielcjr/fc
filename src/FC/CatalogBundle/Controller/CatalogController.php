@@ -3,6 +3,7 @@
 namespace FC\CatalogBundle\Controller;
 
 use FC\CatalogBundle\Entity\Catalog;
+use FC\CatalogBundle\Form\CatalogType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -48,21 +49,23 @@ class CatalogController extends Controller
             throw new AccessDeniedException("Session for admin only");
         }
         $catalog = new Catalog();
-        $form = $this->createForm('FC\CatalogBundle\Form\CatalogType', $catalog);
+        $form = $this->createForm(new CatalogType(), $catalog);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->get('security.context')->getToken()->getUser();
+            $catalog->setAuthor($user);
             $em = $this->getDoctrine()->getManager();
             $em->persist($catalog);
             $em->flush();
 
-            return array('id' => $catalog->getId());
+            return $this->redirect($this->generateUrl('catalog_show', array('id' => $catalog->getId())));
         }
 
-        return $this->render('catalog/new.html.twig', array(
+        return array(
             'catalog' => $catalog,
             'form' => $form->createView(),
-        ));
+        );
     }
 
     /**

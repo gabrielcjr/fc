@@ -58,3 +58,9 @@ app/console assets:install web --symlink
 # Access control
 
 app/console debug:router
+
+# Changing schema
+
+app/console doctrine:schema:update --force
+
+app/console doctrine:query:sql "Select * from fc_catalog"

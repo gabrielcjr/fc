@@ -38,4 +38,4 @@ security:
         - {path: ^/catalog/create, roles: ROLE_USER}
         - {path: ^/catalog/create, roles: ROLE_USER, methods: POST}
         - {path: ^/catalog/(\d+)/edit, roles: ROLE_USER}
-        - {path: ^/catalog/(\d+), roles: ROLE_USER, methods: DELETE, PUT}
+        - {path: ^/catalog/(\d+), roles: ROLE_USER, methods: {DELETE, PUT}}
