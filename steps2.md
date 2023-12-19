@@ -76,3 +76,8 @@ app/console doctrine:schema:create
 app/console doctrine:fixtures:load
 
 app/console doctrine:query:sql "Select * from fc_catalog"
+
+# Run in production
+
+app/console cache:clear --env=prod --no-debug
+
