@@ -81,3 +81,4 @@ app/console doctrine:query:sql "Select * from fc_catalog"
 
 app/console cache:clear --env=prod --no-debug
 
+app/console assetic:dump --env=prod --no-debug (assetic not available in symfony 2.8 version)
