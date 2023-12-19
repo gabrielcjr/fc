@@ -82,3 +82,24 @@ app/console doctrine:query:sql "Select * from fc_catalog"
 app/console cache:clear --env=prod --no-debug
 
 app/console assetic:dump --env=prod --no-debug (assetic not available in symfony 2.8 version)
+
+# Create a service
+
+Run this command to see the services
+app/console container:debug  
+
+in service.yml
+
+```
+services:
+    # name of the new service
+    fc_catalog.reporting.catalog_report_manager:
+        # path to class that's been registered
+        class: FC\CatalogBundle\Reporting\CatalogReportManager
+        arguments:
+            # string with @ to identify other services that are necessary to run this one
+            - "@doctrine.orm.entity_manager"
+```
+
+Run this command to see the services
+New service is displayed in the list
