@@ -103,3 +103,41 @@ services:
 
 Run this command to see the services
 New service is displayed in the list
+
+To get the service
+$this->container->get('fc_catalog.reporting.catalog_report_manager');
+
+On app/config/config.yml, on imports, it's possible to register services like this:
+```
+    - { resource: "@CatalogBundle/Resources/config/services.yml" }
+```
+
+Add calls on service.yml
+```
+services:
+    fc_catalog.reporting.catalog_report_manager:
+    ...
+    calls:
+        - ["setLogger", ["@logger"]]
+```
+
+By adding the following in the service registered class:
+```
+use Symfony\Bridge\Monolog\Logger;
+
+public function getAllCatalogs(){
+    $this->logInfor("Logging in...downloading report")
+}
+
+private $logger; 
+
+public function setLogger(Logger $logger){
+    $this->logger = $logger
+}
+
+private function logInfo($msg){
+    if($this-logger){
+        $this->logger->info($msg)
+    }
+}
+```
