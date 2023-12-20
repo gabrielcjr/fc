@@ -1,4 +1,7 @@
 services:
-#    catalog.example:
-#        class: FC\CatalogBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  fc_catalog.twig.catalog_extension:
+    class: FC\CatalogBundle\Twig\CatalogExtension
+    arguments: []
+    tags:
+      - { name: twig.extension }
+    public: false
