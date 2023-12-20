@@ -11,6 +11,7 @@ use FC\UserBundle\Entity\User;
  *
  * @ORM\Table(name="fc_catalog")
  * @ORM\Entity(repositoryClass="FC\CatalogBundle\Repository\CatalogRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Catalog
 {
@@ -66,7 +67,7 @@ class Catalog
     /**
      * @var \DateTime $created
      * 
-     * @Gedmo\Timestampable(on="create")
+    //  * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $created;
@@ -213,5 +214,14 @@ class Catalog
 
     public function setUpdated($updated){
         $this->updated = $updated;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist(){
+        if(!$this->getCreated()){
+            $this->setCreated(new \DateTime());
+        }
     }
 }
