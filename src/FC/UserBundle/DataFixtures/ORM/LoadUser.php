@@ -41,13 +41,6 @@ class LoadUser extends AbstractFixture implements ContainerAwareInterface, Order
         $this->container = $container;
     }
 
-    private function encodePassword($user, $plainPassword) {
-        $encoder = $this->container->get("security.encoder_factory")
-        ->getEncoder($user);
-
-        return $encoder->encodePassword($plainPassword, $user->getSalt());
-    }
-
     function getOrder() {
         return 10;
     }
