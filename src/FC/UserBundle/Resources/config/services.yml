@@ -1,5 +1,7 @@
 services:
   fc_user.listener.user_listener:
     class: FC\UserBundle\Listener\UserListener
+    arguments:
+      - "@security.encoder_factory"
     tags:
       - { name: doctrine.event_listener, event: prePersist }

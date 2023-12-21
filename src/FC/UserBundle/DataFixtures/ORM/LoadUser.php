@@ -18,7 +18,7 @@ class LoadUser extends AbstractFixture implements ContainerAwareInterface, Order
         $user = new User();
         $user->setUsername("user")
             ->setEmail("user@user.com")
-            ->setPassword($this->encodePassword($user,"user"))
+            ->setPlainPassword("user")
             ->setRoles(array("ROLE_USER"))
             ->setIsActive(true);
         
@@ -29,7 +29,7 @@ class LoadUser extends AbstractFixture implements ContainerAwareInterface, Order
         $admin = new User();
         $admin->setUsername("admin")
             ->setEmail("admin@admin.com")
-            ->setPassword($this->encodePassword($admin,"admin"))
+            ->setPlainPassword("admin")
             ->setRoles(array("ROLE_ADMIN"))
             ->setIsActive(true);
         

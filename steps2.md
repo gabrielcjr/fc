@@ -2,17 +2,17 @@
 
 app/console generate:bundle
 
-# Doctrine
+## Doctrine
 
 app/console doctrine:generate:entity
 
-# Create db
+## Create db
 
 app/console doctrine:database:create
 
 app/console doctrine:schema:create
 
-# DataFixtures
+## DataFixtures
 
 Add to composer.json
 
@@ -22,44 +22,44 @@ composer.phar update
 
 app/console doctrine:fixtures:load
 
-# Create CatalogBundle
+## Create CatalogBundle
 
 app/console generate:bundle
 
-# Create entity
+## Create entity
 
 app/console doctrine:generate:entity
 
-# Create catalog table
+## Create catalog table
 
 app/console doctrine:schema:update --dump-sql
 
 app/console doctrine:schema:update --force
 
-# CRUD
+## CRUD
 
 app/console generate:doctrine:crud
 
-# Data fixture
+## Data fixture
 
 app/console doctrine:fixtures:load
 
-# Security 
+## Security
 
 app/console container:debug  
 
-# Install assets
+## Install assets
 
 create file in Resources/public/css/main.css
 
 Simbolic link
 app/console assets:install web --symlink
 
-# Access control
+## Access control
 
 app/console debug:router
 
-# Changing schema
+## Changing schema
 
 app/console doctrine:schema:update --force
 
@@ -67,9 +67,9 @@ app/console doctrine:query:sql "Select * from fc_catalog"
 
 app/console doctrine:fixtures:load
 
-# Use doctrine extensions slugging
+## Use doctrine extensions slugging
 
-app/console doctrine:schema:drop --force       
+app/console doctrine:schema:drop --force
 
 app/console doctrine:schema:create
 
@@ -77,13 +77,13 @@ app/console doctrine:fixtures:load
 
 app/console doctrine:query:sql "Select * from fc_catalog"
 
-# Run in production
+## Run in production
 
 app/console cache:clear --env=prod --no-debug
 
 app/console assetic:dump --env=prod --no-debug (assetic not available in symfony 2.8 version)
 
-# Create a service
+## Create a service
 
 Run this command to see the services
 app/console container:debug  
